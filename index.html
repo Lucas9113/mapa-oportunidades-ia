@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mapa de Oportunidades con IA</title>
+  <meta name="description" content="Comparte y descubre oportunidades de negocio con IA detectadas en ciudades de todo el mundo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>🌍 Mapa de Oportunidades con IA</h1>
+    <p>Oportunidades de negocio detectadas en ciudades, publicadas por la comunidad.</p>
+  </header>
+
+  <main class="container">
+    <section class="panel" aria-labelledby="form-title">
+      <h2 id="form-title">Publicar una oportunidad</h2>
+      <form id="opp-form">
+        <div class="grid">
+          <input id="name" placeholder="Nombre" required maxlength="100">
+          <input id="city" placeholder="Ciudad" required maxlength="80">
+          <input id="country" placeholder="País" required maxlength="80">
+          <select id="category" required>
+            <option value="">Categoría</option>
+            <option>Salud</option><option>Educación</option><option>Finanzas</option>
+            <option>Movilidad</option><option>Comercio</option><option>Turismo</option>
+            <option>Energía</option><option>Otro</option>
+          </select>
+          <select id="potential" required>
+            <option value="">Potencial</option>
+            <option>Bajo</option><option>Medio</option><option>Alto</option>
+          </select>
+        </div>
+        <textarea id="problem" placeholder="Problema detectado" required maxlength="500"></textarea>
+        <textarea id="ai_solution" placeholder="Solución con IA" required maxlength="500"></textarea>
+        <button id="submit-btn" type="submit">Publicar</button>
+        <p id="form-msg" class="msg" role="status"></p>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="list-title">
+      <div class="list-head">
+        <h2 id="list-title">Oportunidades <span id="count" class="badge"></span></h2>
+        <div class="filters">
+          <select id="f-city"><option value="">Todas las ciudades</option></select>
+          <select id="f-country"><option value="">Todos los países</option></select>
+          <select id="f-category"><option value="">Todas las categorías</option></select>
+        </div>
+      </div>
+      <div id="list" class="cards"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
