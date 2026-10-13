@@ -12,8 +12,29 @@ async function loadOpportunities() {
   const { data, error } = await db.from('opportunities').select('*').order('created_at', { ascending: false });
   if (error) { $('list').innerHTML = `<p class="empty">Error al cargar: ${esc(error.message)}</p>`; return; }
   all = data;
+  renderStats();
   fillFilters();
   render();
+}
+
+function animateTo(id, target) {
+  const el = $(id), from = +el.dataset.v || 0;
+  el.dataset.v = target;
+  const t0 = performance.now(), dur = 600;
+  (function step(t) {
+    const k = Math.min((t - t0) / dur, 1);
+    el.textContent = Math.round(from + (target - from) * k);
+    if (k < 1) requestAnimationFrame(step);
+  })(t0);
+}
+
+// Estadísticas globales (no dependen de los filtros)
+function renderStats() {
+  const norm = v => v.trim().toLowerCase();
+  animateTo('s-opps', all.length);
+  animateTo('s-cities', new Set(all.map(o => norm(o.city))).size);
+  animateTo('s-countries', new Set(all.map(o => norm(o.country))).size);
+  animateTo('s-likes', all.reduce((n, o) => n + o.likes, 0));
 }
 
 function fillFilters() {
